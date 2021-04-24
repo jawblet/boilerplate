@@ -1,0 +1,24 @@
+.page {
+    background-color: $off-white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    &__header {
+      align-self: center;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+}
+
+.landing {
+  &__header{
+    width: 10rem;
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
