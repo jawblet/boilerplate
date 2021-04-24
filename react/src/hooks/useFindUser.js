@@ -2,27 +2,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useFindUser() {
-const [userStatus, setUserStatus] = useState({});
-const [isLoading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [isLoading, setLoading] = useState(true);
 
-    useEffect(() =>{
-        try {
-            axios({
-                method: 'GET',
-                url: '/user'
-            }).then(res => {
-                console.log("The findUser function ran");
-              //  console.log(res.data.currentUser);
-                setUserStatus(res.data.currentUser);
-                setLoading(false);
-            })
-        } catch(err) {
-            console.log(err);
+    const findUser = async () => {
+       return axios.get('/auth').then(res =>{
+         setUser(res.data.currentUser);
+         setLoading(false);
         }
-    }, []);
+        ).catch(err => { 
+            isLoading(false);
+            console.log(err)});
+    };
     
     return {
-        userStatus,
+        findUser,
+        user,
+        setUser,
         isLoading
     }
 }

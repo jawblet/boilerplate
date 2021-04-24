@@ -1,19 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import InlineButton from './../components/InlineButton';
+import React, { useEffect, useContext } from 'react'; 
+import { UserContext } from '../hooks/UserContext';
+import Home from './Home';
+import GenericLanding from './GenericLanding';
 
 export default function Landing() {
+    //if user exists, it should be set by now
+    const { user } = useContext(UserContext);
+
     return(
-        <div className="page">
-        <header className="landing__header">
-                <Link to = "/login"> 
-                    <InlineButton name={"login"}/>
-                </Link>
-                <Link to = "/register"> 
-                    <InlineButton name={"register"}/>
-                </Link>
-            </header>
-           <h3>This is the public landing page</h3> 
-        </div>
+        <Home/>
     )
 }
+
+/*
+<>
+    {user ? <Home/>
+    : <GenericLanding/>}
+</>
+*/

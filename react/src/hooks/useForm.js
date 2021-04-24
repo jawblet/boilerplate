@@ -20,19 +20,6 @@ export default function useForm({ initialValues }) {
         }); 
     };
 
-    //submit form when submit button is clicked 
-    const handleSubmit = event => {
-        event.preventDefault();
-        switch (values.form) {
-            case 'register':
-            registerUser({ values });
-            break;
-            case 'login':
-            loginUser({ values });
-            break;
-        }
-    };
-
     //register user  
     const registerUser = async (formValues) => {
         const dataObject = formValues.values; 
@@ -59,33 +46,9 @@ export default function useForm({ initialValues }) {
             }
       };
 
-    //login user 
-    const loginUser = async (formValues) => {
-        const dataObject = formValues.values; 
-        const { username, password } = dataObject;
-        try {
-            await axios({
-                method: 'POST',
-                url: `auth/login`, 
-                data: {
-                  username,
-                  password,
-                }
-            }).then(res => {
-                    console.log(res);
-                    const username = res.data.data.user.username;
-                    setUser(username); 
-                    history.push('/home'); 
-                })
-            } catch(err) {
-                 console.log(err);
-                 setError(err.response.data);
-            }
-      };
 
     return {
         handleChange,
-        handleSubmit,
         values,
         error
     }

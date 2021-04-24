@@ -3,7 +3,6 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const viewRouter = require('./routers/viewRouter');
 const authRouter = require('./routers/authRouter');
 const userRouter = require('./routers/userRouter');
 const searchRouter = require('./routers/searchRouter');
@@ -27,7 +26,6 @@ app.use((req, res, next) => {
    next();
 });
 
-app.use('/', viewRouter);
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/search', searchRouter);

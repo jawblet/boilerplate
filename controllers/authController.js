@@ -22,7 +22,7 @@ const createUserToken = async(user, code, req, res) => {
     res.cookie('jwt', token, {
         expires: d, 
         httpOnly: true,
-        secure: req.secure || req.headers['x-forwarded-proto'] === 'https', 
+        secure: true, 
         sameSite: 'none'
     });
 
@@ -31,9 +31,7 @@ const createUserToken = async(user, code, req, res) => {
     res.status(code).json({
         status: 'success',
         token,
-        data: {
-            user
-        }
+        user
     });
 };
 
@@ -57,7 +55,6 @@ exports.registerUser = async(req, res, next) => {
 
 //check if user is logged in 
 exports.loginUser = catchAsync(async(req, res, next) => {
-    console.log('i was called on login')
     const { username, password } = req.body;
 
     //check if email & password exist 

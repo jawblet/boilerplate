@@ -1,5 +1,6 @@
 //handle email or usename duplicates
 const handleDuplicateKeyError = (err, res) => {
+    console.log(err);
     const field = Object.keys(err.keyValue);
     const code = 409;
     const error = `An account with that ${field} already exists.`;
@@ -11,7 +12,7 @@ const handleValidationError = (err, res) => {
     let errors = Object.values(err.errors).map(el => el.message);
     let fields = Object.values(err.errors).map(el => el.path);
     let code = 400;
-
+    console.log(err);
     if(errors.length > 1) {
         const formattedErrors = errors.join(' ');
         res.status(code).send({messages: formattedErrors, fields: fields});
@@ -22,9 +23,9 @@ const handleValidationError = (err, res) => {
 
 //error controller function
 module.exports = (err, req, res, next) => {
+    console.log(err.message);
     try {
-        console.log('congrats you hit the error middleware');
-        console.log(err);
+        if(err.status === 'fail') return res.status(err.code).send({ messages: err.message });
         if(err.name === 'ValidationError') return err = handleValidationError(err, res); 
         if(err.code && err.code == 11000) return err = handleDuplicateKeyError(err, res);
     } catch(err) {

@@ -1,14 +1,9 @@
 const User = require('../models/userModel');
-const catchAsync = require('../utils/catchAsync')
+const handler = require('../controllers/genericController');
 
-//get all users 
-exports.getAllUsers = catchAsync(async (req, res) => {
-        const users = await User.find();
-
-        res.status(200).json({
-            status: 'success',
-            data: {
-                users
-            }
-        });
-});
+exports.getUserById = handler.getOneById(User, 'graph');
+exports.getAllUsers = handler.getAll(User);
+exports.deleteOneUser = handler.deleteOne(User);
+exports.deleteAllUsers = handler.deleteMany(User);
+exports.createUser = handler.create(User);
+exports.updateUser = handler.upsert(User);

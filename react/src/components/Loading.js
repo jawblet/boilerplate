@@ -1,7 +1,7 @@
 export default function Loading() {
     return(
         <div className="loading">
-            <span className="pulse"></span>
+           <h1>...loading</h1> 
         </div>
     )
 }

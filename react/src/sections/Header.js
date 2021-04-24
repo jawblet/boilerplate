@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import InlineButton from './../components/InlineButton';
 import { UserContext } from '../hooks/UserContext';
@@ -7,10 +8,13 @@ export default function Header() {
     const { user } = useContext(UserContext);
     const { logoutUser } = useLogout(); 
 
+
     return(
+        <div>
         <header className='page__header'>
-            Hello, {user}.
-            <InlineButton name={'logout'} handleClick={logoutUser} />
+            Hello, {user.username}.
+            <InlineButton name={'logout'} handleClick={logoutUser}/>
         </header>
+        </div>  
     )
 }

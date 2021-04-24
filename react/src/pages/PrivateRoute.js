@@ -1,26 +1,26 @@
-import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useContext } from 'react'; 
+import { Route } from 'react-router-dom';
+import Loading from './../components/Loading';
 import { UserContext } from './../hooks/UserContext';
-import Loading from './../components/Loading'; 
-
+import GenericLanding from './GenericLanding';
 
 export default function PrivateRoute(props) {   
     const { user, isLoading } = useContext(UserContext); 
 
-    const Component = props.component; 
+        const { component: Component,
+        ...rest } = props; 
 
-    console.log(`${user} is the user`)
+        //return loading component 
+        if(isLoading) {
+          return <Loading/>;
+        } 
 
-      if(isLoading) {
-          return <Loading/>
-        }
-
-    //USER HAS TO BE CHECKED HERE
-      if(user){
-          return <Component/>
+        if(user){
+            return ( <Route {...rest} render={(props) => (
+            <Component {...props}/>)}/>)
         } else {
-            return <Redirect to={{pathname: '/'}} /> 
-        };
+            return <GenericLanding/>
+        }
 }
 
 
@@ -38,43 +38,4 @@ export default function PrivateRoute(props) {
 
 
 
-
-
-
-/**
-  
-
-    useEffect(() => {
-        console.log('The Privte Route useEffect ran');
-        if(user) {
-          console.log(user);
-          setUser(userStatus.username);
-        } else {
-            console.log('The Privte Route did NOT find a user');
-            setUser({});
-        }
-      }, []);
- 
-
- export default function PrivateRoute(props) {
-    const { user, setUser } = useContext(UserContext);
-    const { userStatus } = useFindUser();
-
-    const checkAuthentication = () => {
-            console.log('Private route check ran');
-            const Component = props.component; 
-            if(user) {
-                return <Component/>
-            } else {
-                return <Redirect to = {{ pathname: '/' }} />
-            }
-        }
- 
-    return(
-        <>
-        {checkAuthentication(props)}
-       </>
-    )
-};
-**/
 
