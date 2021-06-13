@@ -10,6 +10,7 @@ export default function PrivateRoute(props) {
         const { component: Component,
         ...rest } = props; 
 
+        console.log(user, isLoading);
         //return loading component 
         if(isLoading) {
           return <Loading/>;

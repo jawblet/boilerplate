@@ -5,18 +5,11 @@ export default function useLogout() {
     let history = useHistory();
 
     const logoutUser = async () => {
-        try {
-           await axios({
-                method: 'GET',
-                url: `auth/logout`,
-            }).then(res => { 
-                console.log(res); 
-                history.push('/');
-            })
-        } catch(err) {
-            console.log(err);
-        } 
-    }
+        
+        await axios.get('auth/logout').then(res => {  
+                history.go(0);
+            }).catch(err => console.log(err))
+        }
 
     return {
         logoutUser
