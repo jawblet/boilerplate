@@ -1,5 +1,5 @@
-# boilerplate
-MERN boilerplate 
+# MERN boilerplate app with auth
+ 
 
 This is an Express server meant to be used with a MongoDB database and React FE. The client is inside the folder called `React`. 
 
